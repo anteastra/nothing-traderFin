@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -68,7 +69,17 @@ public class GameActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {		
-		getMenuInflater().inflate(R.menu.activity_game, menu);
+		getMenuInflater().inflate(R.menu.common_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.MenuReset:
+	            GameStateSingleton.getInstance().reset();	        
+	    }
 		return true;
 	}
 	
