@@ -2,10 +2,15 @@ package com.anteastra.finance;
 
 import java.util.Random;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+
 public class GameStateSingleton {
 
 	private static Object syncObject = new Object();
 	private static GameStateSingleton instance = null;
+	private static Context context;
 	private GameStateSingleton(){
 		
 	}
@@ -14,7 +19,7 @@ public class GameStateSingleton {
 		if (instance == null){
 			synchronized(syncObject){
 				instance = new GameStateSingleton();
-				instance.initialState();
+				instance.initialState();				
 			}
 		}		
 		return instance;		
@@ -51,6 +56,10 @@ public class GameStateSingleton {
 	public boolean isCanSell = true;
 	
 	
+	public static void setContext(Context con){
+		context = con;
+	}
+	
 	public void nextDay(){
 		day++;
 		//moneyAmount += 30;
@@ -79,6 +88,15 @@ public class GameStateSingleton {
 			moneyAmount = moneyAmount - retails * retailRent;
 			moneyAmount = moneyAmount - personnel * personnelPay;
 			
+			if (moneyAmount <0){
+				Intent myIntent = new Intent(context, LostActivity.class);
+				context.startActivity(myIntent);
+			}
+			
+			if (moneyAmount > 100000){
+				Intent myIntent = new Intent(context, WinActivity.class);
+				context.startActivity(myIntent);
+			}
 		}
 		
 	}

@@ -33,8 +33,9 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.activity_game);
 						
 		state = GameStateSingleton.getInstance();
+		state.setContext(this);
 		UpdateViews();
-		
+				
 		Button speed0 = (Button) findViewById(R.id.buttonSpeed0);
 		Button speed1 = (Button) findViewById(R.id.buttonSpeed1);
 		Button speed2 = (Button) findViewById(R.id.buttonSpeed2);
@@ -74,6 +75,7 @@ public class GameActivity extends Activity {
 	public void onPause(){
 		super.onPause();
 		state.gameSpeed = state.SPEED_0;
+		this.finish();
 	}
 	
 	public void onResume(){
